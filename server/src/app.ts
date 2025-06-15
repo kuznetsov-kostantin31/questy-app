@@ -1,11 +1,7 @@
 import cors from 'cors'
-import express, { Application, Router } from 'express'
+import express, { Application } from 'express'
 import { AppDataSource } from './config/database'
-import { userRouter } from './user/user.router'
-
-const router = Router()
-
-router.use('/user', userRouter)
+import { router } from './routers'
 
 class App {
 	public app: Application

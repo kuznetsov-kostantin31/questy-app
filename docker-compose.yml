@@ -17,6 +17,25 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - questy
+  server:
+    build: ./server
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./server/.env
+    depends_on:
+      - postgres
+    networks:
+      - questy
+
+  client:
+    build: ./client
+    ports:
+      - '4000:4000'
+    depends_on:
+      - server
+    networks:
+      - questy
 
 volumes:
   postgres_data:

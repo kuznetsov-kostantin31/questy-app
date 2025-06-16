@@ -13,8 +13,7 @@ export const AppDataSource = new DataSource({
 	synchronize: true,
 	logging: false,
 	entities: ['src/entities/**/*.ts'],
-	migrations: ['src/migration/**/*.ts'],
-	subscribers: []
+	migrations: ['src/migration/**/*.ts']
 })
 
 if (require.main === module) {

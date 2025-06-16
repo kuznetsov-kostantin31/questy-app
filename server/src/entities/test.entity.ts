@@ -1,30 +1,23 @@
-import {
-	Column,
-	Entity,
-	JoinColumn,
-	ManyToOne,
-	OneToMany,
-	PrimaryGeneratedColumn
-} from 'typeorm'
-import { QuestEntity } from './quest.entity'
-import { UserEntity } from './user.entity'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity({ name: 'test' })
+@Entity({ name: 'tests' })
 export class TestEntity {
 	@PrimaryGeneratedColumn()
 	id!: number
 
 	@Column()
-	title!: string
+	userId!: string
 
-	@JoinColumn()
-	@OneToMany(() => QuestEntity, quest => quest.test)
-	quests!: QuestEntity[]
+	@Column('simple-json')
+	answers!: {
+		questionId: number
+		selectedOptionIndex: number
+		correct: boolean
+	}[]
 
-	@Column({ name: 'user_id' })
-	userId!: number
+	@Column()
+	score!: number
 
-	@ManyToOne(() => UserEntity)
-	@JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-	user!: UserEntity
+	@Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+	createdAt!: Date
 }

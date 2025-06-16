@@ -3,14 +3,15 @@ import { AppDataSource } from '../config/database'
 import { QuestEntity } from '../entities/quest.entity'
 
 export class QuestController {
-	async createQuest(req: Request, res: Response): Promise<any> {
-		try {
-			const questRepository = AppDataSource.getRepository(QuestEntity)
-			const quest = questRepository.create(req.body)
-			const results = await questRepository.save(quest)
-			res.status(201).json(results)
-		} catch (e: any) {
-			res.status(500).json({ message: e.message })
-		}
+	async getQuestions(req: Request, res: Response): Promise<any> {
+		const questions = await AppDataSource.getRepository(QuestEntity).find()
+		res.json(questions)
+	}
+
+	async createQuestion(req: Request, res: Response): Promise<any> {
+		const repo = AppDataSource.getRepository(QuestEntity)
+		const question = repo.create(req.body)
+		const result = await repo.save(question)
+		res.status(201).json(result)
 	}
 }

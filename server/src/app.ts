@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser'
 import cors from 'cors'
 import express, { Application } from 'express'
 import { AppDataSource } from './config/database'
@@ -14,7 +15,7 @@ class App {
 	}
 
 	private config(): void {
-		this.app.use(express.json())
+		this.app.use(bodyParser.json())
 		this.app.use(express.urlencoded({ extended: false }))
 		this.app.use(cors())
 	}
@@ -27,6 +28,9 @@ class App {
 		try {
 			await AppDataSource.initialize()
 			console.log('Database connected')
+
+			await AppDataSource.runMigrations()
+			console.log('Migrations applied')
 		} catch (error) {
 			console.error('Database connection error', error)
 		}

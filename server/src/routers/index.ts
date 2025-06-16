@@ -5,8 +5,8 @@ import { userRouter } from './user.router'
 
 const router = Router()
 
-router.use('/user', userRouter)
-router.use('/quest', questRouter)
-router.use('/test', testRouter)
+router.use('/users', userRouter)
+router.use('/quests', questRouter)
+router.use('/tests', testRouter)
 
 export { router }

@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { onMounted, ref } from 'vue'
 import { GET_RESULT } from '../constants/api.constants'
+import router from '../router'
 import type { ITest } from '../types/Test.types'
 
 const results = ref<ITest[]>([])
@@ -28,5 +29,6 @@ onMounted(async () => {
 				<hr />
 			</div>
 		</div>
+		<button @click="router.push('/quiz')">Перейти к викторине</button>
 	</div>
 </template>

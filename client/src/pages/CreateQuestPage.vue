@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { onMounted, ref } from 'vue'
 import { CREATE_QUEST, GET_QUEST } from '../constants/api.constants'
+import router from '../router'
 
 interface AnswerOption {
 	text: string
@@ -60,6 +61,7 @@ function resetForm() {
 		</div>
 		<button @click="addOption">Добавить вариант</button>
 		<button @click="saveQuestion">Сохранить вопрос</button>
+		<button @click="router.push('/quiz')">Перейти к викторине</button>
 
 		<hr />
 

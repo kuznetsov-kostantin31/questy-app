@@ -10,6 +10,7 @@ cd ..
 
 # Перейти в папку с клиентом и установить зависимости
 cd client || { echo "Не удалось перейти в папку client"; exit 1; }
+cp -a ../.env .env
 npm install
 echo "✅ Клиент: зависимости установлены"
 
@@ -17,5 +18,6 @@ echo "✅ Клиент: зависимости установлены"
 cd ..
 
 # Поднять контейнеры
+docker-compose build --no-cache
 docker-compose up -d
 echo "✅ Проект запущен через Docker"

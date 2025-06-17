@@ -2,27 +2,35 @@ version: '3.9'
 
 services:
   postgres:
-    container_name: questydb
+    container_name: postgres
     image: postgres:latest
     restart: always
     env_file:
-      - ./server/.env
+      - .env
     environment:
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
     ports:
-      - '${DB_PORT}:5432'
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - questy
+
   server:
     build: ./server
+    container_name: server
     ports:
       - '3000:3000'
     env_file:
-      - ./server/.env
+      - .env
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
     depends_on:
       - postgres
     networks:
@@ -30,8 +38,13 @@ services:
 
   client:
     build: ./client
+    container_name: client
     ports:
-      - '4000:4000'
+      - '4000:80'
+    env_file:
+      - .env
+    environment:
+      VITE_SERVER_URL: ${VITE_SERVER_URL}
     depends_on:
       - server
     networks:

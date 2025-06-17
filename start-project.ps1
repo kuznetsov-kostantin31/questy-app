@@ -18,6 +18,7 @@ if (-Not (Test-Path "node_modules")) {
     npm install
     Write-Host "✅ Клиент: зависимости установлены"
 }
+Copy-Item -Path "../.env" -Destination "./client/.env" -Force
 Set-Location ..
 
 # Запуск Docker Compose
